@@ -1,17 +1,30 @@
 """
-This module is used for planning tasks.
+Planner Agent
+Generates an execution plan for a user's research goal.
 """
+
 import json
-import asyncio
-from mcp.server.fastmcp import FastMCP
-import os
 from pathlib import Path
 
-mcp = FastMCP()
+from models.llm import BaseLLM
 
-SYSTEM_PROMPT = Path("prompts/planner.md").read_text()
-async def plan_task(task:str, llm, memory_store=None,) -> dict|None:
-    messages = [
-        {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": task},
-    ]
+SYSTEM_PROMPT = Path(
+    "prompts/planner.md"
+).read_text(encoding="utf-8")
+
+
+async def plan_task(
+    user_goal: str,
+    llm: BaseLLM,
+    memory_store=None,
+) -> dict | None:
+
+    response = await llm.generate(
+        system_prompt=SYSTEM_PROMPT,
+        user_prompt=user_goal,
+    )
+
+    try:
+        return json.loads(response)
+    except json.JSONDecodeError:
+        return None
