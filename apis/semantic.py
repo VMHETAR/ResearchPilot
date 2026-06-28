@@ -1,7 +1,7 @@
 from schemas.search_dataclass import Paper
 
 async def semantic_search(query: str) -> list[Paper]:
-    # Call API
+
 
     papers = []
 
