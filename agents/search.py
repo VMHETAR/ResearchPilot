@@ -7,6 +7,7 @@ import urllib, urllib.parse
 from pathlib import Path
 from models.llm import BaseLLM
 from mcp.server.fastmcp import FastMCP
+
 SYSTEM_PROMPT = Path("prompts/search.md").read_text(encoding="utf-8")
 
 """
