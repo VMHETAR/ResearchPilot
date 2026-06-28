@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 
 @dataclass
-class SearchPapers:
+class Paper:
     title:str
     authors:list[str]
     abstract:str
     year:int
     source:str
     url:str
-    pdf_url:str | None
-    doi:str | None
+    pdf_url:str | None = None
+    doi:str | None = None
